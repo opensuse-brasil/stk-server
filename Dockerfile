@@ -2,7 +2,7 @@ FROM registry.opensuse.org/opensuse/leap:latest AS build
 
 WORKDIR /stk
 
-RUN zypper in -y cmake gcc-c++ git libcurl-devel enet-devel openssl-devel sqlite3-devel subversion
+RUN zypper in -y cmake gcc-c++ git libcurl-devel enet-devel libopenssl-devel sqlite3-devel subversion
 
 RUN git clone https://github.com/supertuxkart/stk-code stk-code
 
