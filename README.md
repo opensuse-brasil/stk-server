@@ -8,8 +8,7 @@ Container image to run a [SuperTuxKart](https://supertuxkart.net/) server.
 
 ### Setup multi arch build
 
-Install [docker-buildx](https://github.com/docker/buildx#linux-packages) first.
-Restart the docker daemon.
+Install [docker-buildx](https://github.com/docker/buildx#linux-packages) and restart the docker daemon.
 
 ```bash
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
