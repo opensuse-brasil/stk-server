@@ -1,30 +1,40 @@
 # stk-server
 
+![stk](https://supertuxkart.net/assets/images/logo.png)
+
 Container image to run a [SuperTuxKart](https://supertuxkart.net/) server.
 
-## Build
+## Development
+
+### Setup multi arch build
+
+Install [docker-buildx](https://github.com/docker/buildx#linux-packages) first.
+Restart the docker daemon.
 
 ```bash
-podman build -t stk-server . --no-cache
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+docker buildx create --name multiarch --driver docker-container --use
+docker buildx inspect --bootstrap
 ```
 
-## Push
+### Build and Push
 
 ```bash
-podman push stk-server opensusebr/stk-server:latest
-podman push stk-server opensusebr/stk-server:$(date +"%Y%m%d")
+docker buildx build --push --platform linux/arm64,linux/amd64 --tag opensusebr/stk-server:latest . --no-cache
+docker buildx build --push --platform linux/arm64,linux/amd64 --tag opensusebr/stk-server:1.3 .
+docker buildx build --push --platform linux/arm64,linux/amd64 --tag opensusebr/stk-server:$(date +"%Y%m%d") .
 ```
 
 ## Pull
 
 ```bash
-podman pull opensusebr/stk-server
+docker pull opensusebr/stk-server
 ```
 
 ## Run
 
 ```bash
-podman run -it --rm -p 2757:2757 -p 2759:2759 -e STK_USER="user" -e STK_PASSWORD="pwd" -e STK_SERVER_NAME="openSUSE Brasil" opensusebr/stk-server
+docker run -it --rm -p 2757:2757 -p 2759:2759 -e STK_USER="user" -e STK_PASSWORD="pwd" -e STK_SERVER_NAME="openSUSE Brasil" opensusebr/stk-server
 ```
 
 ## Environment Variables
