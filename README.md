@@ -24,16 +24,10 @@ podman pull opensusebr/stk-server
 ## Run
 
 ```bash
-podman run -it --rm -p 2757:2757 -p 2759:2759 -e USERNAME="user" -e PASSWORD="pwd" -e SERVER_NAME="openSUSE Brasil" opensusebr/stk-server
+podman run -it --rm -p 2757:2757 -p 2759:2759 -e STK_USER="user" -e STK_PASSWORD="pwd" -e STK_SERVER_NAME="openSUSE Brasil" opensusebr/stk-server
 ```
 
 ## Environment Variables
-
-### SERVER_NAME
-
-The server name on the global network.
-
-Default: `STK`
 
 ### STK_CONFIG
 
@@ -41,19 +35,27 @@ The server configuration file.
 
 Default: `/stk/config.xml`
 
-### MOTD_FILE
+### STK_SERVER_NAME
 
-The MOTD file to show in the lobby.
+The server name on the global network.
+This will override the name in the config file.
 
-Default: `/stk/motd.txt`
+Default: **Not Set**
 
-### USERNAME
+### STK_MOTD
+
+The MOTD to show in the lobby (can be a txt file).
+This will override the MOTD in the config file.
+
+Default: **Not Set**
+
+### STK_USER
 
 The user to authenticate.
 
 Default: **Not Set**
 
-### RSYNC_PASSWORD
+### STK_PASSWORD
 
 The user password to authenticate.
 

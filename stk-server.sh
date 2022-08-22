@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
 STK_CONFIG=${STK_CONFIG:-/stk/config.xml}
-MOTD_FILE=${MOTD_FILE:-/stk/motd.txt}
-SERVER_NAME=${SERVER_NAME:-STK}
+EXTRA_ARGS=()
 
-echo "Starting STK server ($SERVER_NAME)..."
+echo "Starting STK server..."
 
-if [[ -n ${USERNAME} ]] && [[ -n ${PASSWORD} ]]; then
-    supertuxkart --init-user --login=${USERNAME} --password=${PASSWORD}
+if [[ -n $STK_USER ]] && [[ -n $STK_PASSWORD ]]; then
+    supertuxkart --init-user --login="$STK_USER" --password="$STK_PASSWORD"
 fi
 
 if [ -f "$STK_CONFIG" ]; then
@@ -17,15 +16,15 @@ else
     exit 1
 fi
 
-if [ -f "$MOTD_FILE" ]; then
-    echo "MOTD file is '$MOTD_FILE'"
-else
-    echo "MOTD file does not exists: $MOTD_FILE"
-    exit 1
+if [ -n "$STK_SERVER_NAME" ]; then
+    EXTRA_ARGS+=(--wan-server="${STK_SERVER_NAME}")
 fi
 
-supertuxkart --server-config=${STK_CONFIG} \
-             --wan-server=${SERVER_NAME} \
-             --motd=${MOTD_FILE} \
+if [ -n "$STK_MOTD" ]; then
+    EXTRA_ARGS+=(--motd="$STK_MOTD")
+fi
+
+supertuxkart --server-config="$STK_CONFIG" \
              --xmas=0 \
-             --easter=0
+             --easter=0 \
+             "${EXTRA_ARGS[@]}"

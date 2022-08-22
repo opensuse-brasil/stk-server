@@ -34,7 +34,7 @@
     <private-server-password value="" />
 
     <!-- Message of today shown in lobby, you can enter encoded XML words here or a file.txt and let STK load it. -->
-    <motd value="" />
+    <motd value="/stk/motd.txt" />
 
     <!-- If this value is set to false, the server will ignore chat messages from all players. -->
     <chat value="true" />
@@ -136,7 +136,7 @@
     <sql-management value="false" />
 
     <!-- Database filename for sqlite to use, it can be shared for all servers created in this machine, and STK will create specific table for each server. You need to create the database yourself first, see NETWORKING.md for details -->
-    <database-file value="stkservers.db" />
+    <database-file value="/stk/stkservers.db" />
 
     <!-- Specified in millisecond for maximum time waiting in sqlite3_busy_handler. You may need a higher value if your database is shared by many servers or having a slow hard disk. -->
     <database-timeout value="1000" />

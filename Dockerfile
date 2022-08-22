@@ -12,6 +12,12 @@ RUN mkdir stk-code/cmake_build && cd stk-code/cmake_build && cmake .. -DSERVER_O
 
 FROM registry.opensuse.org/opensuse/leap:latest
 
+ENV STK_CONFIG="/stk/config.xml"
+ENV STK_SERVER_NAME=""
+ENV STK_MOTD=""
+ENV STK_USER=""
+ENV STK_PASSWORD=""
+
 RUN mkdir -p /stk/data
 
 WORKDIR /stk
@@ -20,8 +26,7 @@ COPY --from=build /usr/local/bin/supertuxkart /usr/bin
 COPY --from=build /usr/local/share/supertuxkart /usr/local/share/supertuxkart
 
 COPY config.xml /stk/config.xml
-COPY stkservers.db /stk/stkservers.db
-COPY motd.txt /stk/motd.txt
+RUN touch /stk/motd.txt
 
 COPY stk-server.sh /usr/bin/stk-server
 RUN chmod +x /usr/bin/stk-server
