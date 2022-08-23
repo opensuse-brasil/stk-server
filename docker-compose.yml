@@ -1,0 +1,26 @@
+version: "3.5"
+
+services:
+  stk-server:
+    image: opensusebr/stk-server
+    environment:
+      STK_CONFIG: /stk/config.xml
+      STK_SERVER_NAME: openSUSE Brasil
+      STK_MOTD: Bem-vindo ao servidor de SuperTuxKart da openSUSE Brasil
+      STK_USER: <not-set>
+      STK_PASSWORD: <not-set>
+    volumes:
+      - stk-data:/stk
+    networks:
+      - stk-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: always
+
+networks:
+  stk-net:
+
+volumes:
+  stk-data:
